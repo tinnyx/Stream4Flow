@@ -1,0 +1,78 @@
+{{extend 'layout.html'}}
+
+<script>
+    // Set correct menu view.
+    $('#menu-hosts-statistics').addClass('active');
+</script>
+
+<h3 class="title1">Hosts Statistics</h3>
+
+{{if ('alert_type' in globals()) and alert_type != "":}}
+<div class="alert alert-{{=alert_type}}" role="alert">
+    <strong>
+        {{if alert_type == "danger":}}Error:
+        {{elif alert_type == "success":}}Success:
+        {{elif alert_type == "info":}}Info:
+        {{elif alert_type == "warning":}}Warning:
+        {{pass}}
+    </strong>{{=alert_message}}
+</div>
+{{pass}}
+
+<!-- Time Range Form -->
+<div class="forms inline-form widget-shadow">
+    <div class="form-title">
+	    <h4>Statistics Settings</h4>
+    </div>
+    <div class="form-body">
+        <div data-example-id="simple-form-inline">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="interval">Interval:</label>
+                    <select name="interval" id="interval" class="form-control" placeholder="interval" onchange="setInterval(this.value)">
+                        <option value="2" selected>Last 2 hours</option>
+                        <option value="6">Last 6 hours</option>
+                        <option value="12">Last 12 hours</option>
+                        <option value="24">Last 24 hours</option>
+                        <option value="48">Last 2 days</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="datetime-beginning">From:</label>
+                    <input type="text" name="beginning" id="datetime-beginning" class="datetimepicker form-control">
+                </div>
+                <div class="form-group">
+                    <label for="datetime-end">To:</label>
+                    <input type="text" name="end" id="datetime-end" class="datetimepicker form-control">
+                </div>
+                <div class="form-group">
+                    <label for="network">Network:</label>
+                    <input type="text" name="network" id="network" placeholder="192.168.0.0/24" class="form-control">
+                </div>
+                <button type="button" class="btn btn-default" onclick="false;">Set settings</button>
+            </form>
+        </div>
+	</div>
+</div>
+<!-- //Time Range Form -->
+
+<!-- Statistic Heatmap -->
+<div class="panel-info widget-shadow general chart-hosts-statistics">
+    <h4 class="title2">Hosts Statistics Heatmap</h4>
+
+    <!-- Status -->
+    <div id="chart-heatmap-status" class="chart-status" style="height: 400px;">
+        <i class="fa fa-exclamation-circle fa-2x fa-fw"></i><span>Network not specified!</span>
+    </div>
+    <!-- Main Chart -->
+    <div id="chart-heatmap" class="zingchart" style="display: none;"></div>
+
+    <div class="clearfix"> </div>
+</div>
+<!-- //Statistics Heatmap -->
+
+
+<!-- Load Custom Scripts -->
+<script src="{{=URL('static','js/custom/datetime_interval.js')}}"></script>
+<!-- //Load Custom Scripts -->
