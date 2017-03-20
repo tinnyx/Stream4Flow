@@ -1,0 +1,84 @@
+/* disable text selection */
+.heatmap svg *::selection {
+    background : transparent;
+}
+
+.heatmap svg *::-moz-selection {
+    background:transparent;
+}
+
+.heatmap svg *::-webkit-selection {
+    background:transparent;
+}
+
+.heatmap rect.legend-border {
+    stroke: #000;
+    stroke-width:1px;
+}
+
+.heatmap .grid {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: #eee;
+    stroke-width:1px;
+}
+
+.heatmap #highlight {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: #c00;
+    stroke-width:1px;
+}
+
+.heatmap #highlight.hidden {
+    display: none;
+}
+
+.heatmap text {
+    font-family: Consolas, courier;
+    fill: #aaa;
+}
+
+.heatmap text.mono {
+    font-size: 4pt;
+}
+
+.heatmap text.legend {
+    font-size: 16pt;
+    fill: #000;
+}
+
+.heatmap text.text-highlight {
+    fill: #c00;
+}
+
+.heatmap text.text-hover {
+    fill: #00C;
+}
+
+#tooltip {
+    position: absolute;
+    width: 150px;
+    height: auto;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(204, 0, 0, 0.8);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+#tooltip p {
+    margin: 0;
+    font-family: Consolas, courier;
+    font-size: 14px;
+    line-height: 20px;
+}
