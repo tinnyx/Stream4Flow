@@ -76,6 +76,9 @@
 		<li role="presentation" class="active">
 			<a href="#chart-flows-panel" id="chart-flows-tab" role="tab" data-toggle="tab" aria-controls="chart-flows-panel" aria-expanded="true">Flows</a>
 		</li>
+        <li role="presentation" class="">
+			<a href="#chart-doccount-panel" id="chart-doccount-tab" role="tab" data-toggle="tab" aria-controls="chart-doccount-panel" aria-expanded="true">Document Count</a>
+		</li>
         <!--
         <li role="presentation" class="">
 			<a href="#chart-packets-panel" id="chart-packets-tab" role="tab" data-toggle="tab" aria-controls="chart-packets-panel" aria-expanded="false">Packets</a>
@@ -91,8 +94,21 @@
 		<div role="tabpanel" class="tab-pane fade active in" id="chart-flows-panel" aria-labelledby="chart-flows-tab">
             <!-- Status -->
             <div class="chart-status" id="chart-flows-status"></div>
+            <!-- Reset button -->
+            <!-- DOESN'T WORK YET -->
+            <button type="button" id="doccount-btn" class="btn btn-default" onclick="resetByButton('chart-flows');false;">Reset</button>
             <!-- Main Chart -->
             <div id="chart-flows" class="zingchart"></div>
+        </div>
+        <!-- Document Count -->
+		<div role="tabpanel" class="tab-pane fade" id="chart-doccount-panel" aria-labelledby="chart-doccount-tab">
+            <!-- Status -->
+            <div class="chart-status" id="chart-doccount-status"></div>
+            <!-- Reset button -->
+            <!-- DOESN'T WORK YET -->
+            <button type="button" id="doccount-btn" class="btn btn-default" onclick="resetByButton('chart-doccount');false;">Reset</button>
+            <!-- Main Chart -->
+            <div id="chart-doccount" class="zingchart"></div>
         </div>
         <!-- Packets -->
         <div role="tabpanel" class="tab-pane fade" id="chart-packets-panel" aria-labelledby="chart-packets-tab">
@@ -125,7 +141,9 @@
 <!-- Load Custom Scripts -->
 <script src="{{=URL('static','js/custom/datetime_interval.js')}}"></script>
 <script src="{{=URL('static','js/common/d3.v3.js')}}"></script>
-<script src="{{=URL('static','js/charts/heatmap.js')}}"></script>
+<script src="{{=URL('static','js/common/string-format.js')}}"></script>
+<script src="{{=URL('static','js/common/parseCIDRRange.js')}}"></script>
+<script src="{{=URL('static','js/charts/d3heatmap.js')}}"></script>
 <script src="{{=URL('static','js/custom/heatmap.js')}}"></script>
 <!-- //Load Custom Scripts -->
 
