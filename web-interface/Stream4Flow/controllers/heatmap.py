@@ -9,7 +9,7 @@ import os
 import json
 
 # A temporary variable used to simulate CIDR field
-cidr = "192.168.0.0/22"
+# cidr = "192.168.0.0/22"
 
 #----------------- Main Functions -------------------#
 
@@ -36,19 +36,33 @@ def get_statistics():
     """
 
     # Check mandatory inputs
-    if not (request.get_vars.beginning and request.get_vars.end and request.get_vars.aggregation and request.get_vars.type):
-        json_response = '{"status": "Error", "data": "Some mandatory argument is missing!"}'
-        return json_response
+    # if not (request.get_vars.beginning and request.get_vars.end and request.get_vars.aggregation and request.get_vars.type):
+    #     json_response = '{"status": "Error", "data": "Some mandatory argument is missing!"}'
+    #     return json_response
 
     # Parse inputs and set correct format
     beginning = escape(request.get_vars.beginning)
     end = escape(request.get_vars.end)
     aggregation = escape(request.get_vars.aggregation)
     type = escape(request.get_vars.type)  # name of field to create sum from, one of {flows, packets, bytes }
+    cidr = escape(request.get_vars.cidr)
+    slider_begin = escape(request.get_vars.sliderBegin)
+    slider_end = escape(request.get_vars.sliderEnd)
 
     # Added CIDR field, replace with value from the CIDR textbox
     try:
-        json_response = '{"status": "Ok", "data": ' + get_statistics_data(beginning, end, aggregation, type) + ', "cidr": "' + cidr + '"}'
+        json_response = '{' \
+                        '"status": "Ok", ' \
+                        '"data": [' \
+                            + get_statistics_data(beginning, end, aggregation, type, "heatmap.json") + ","\
+                            + get_statistics_data(beginning, end, aggregation, type, "heatmap-1.json") + ","\
+                            + get_statistics_data(beginning, end, aggregation, type, "heatmap-2.json") + ","\
+                            + get_statistics_data(beginning, end, aggregation, type, "heatmap-3.json") \
+                        + "]"\
+                        + ', "cidr": "' + cidr + '"' \
+                        + ', "sliderBegin": "' + slider_begin + '"' \
+                        + ', "sliderEnd": "' + slider_end + '"' \
+                        + '}'
         return json_response
 
     except Exception as e:
@@ -56,8 +70,10 @@ def get_statistics():
         return json_response
 
 # Parser for the JSON file
-def get_statistics_data(beginning, end, aggregation, type):
-    json_string = open("applications/Stream4Flow/static/mock/heatmap.json").read()
+def get_statistics_data(beginning, end, aggregation, type, filename):
+    #fields should be used when working with real data
+
+    json_string = open("applications/Stream4Flow/static/mock/" + filename).read()
     json_data = json.loads(json_string)
 
     buckets = json_data["aggregations"]["by host"]["buckets"]
